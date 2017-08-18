@@ -1,18 +1,20 @@
 require_relative("../db/sql_runner")
+
+
 class Customer
 
-attr_reader (:id)
-attr_accessor (:name , :funds)
+  attr_reader(:id)
+  attr_accessor(:name, :funds)
 
-def initialize(customer_info)
-@id = customer_info['id'].to_i
-@name = customer_info['name']
-@funds = customer_info['funds'].to_i
-end
+  def initialize(customer_info)
+    @id = customer_info['id'].to_i
+    @name = customer_info['name']
+    @funds = customer_info['funds'].to_i
+  end
 
 
-def save()
-    sql = "INSERT INTO
+  def save()
+    sql = "INSERT INTO customers
     (
       name,
       funds
@@ -24,10 +26,10 @@ def save()
     RETURNING id"
     values = [@name, @funds]
     data = SqlRunner.run( sql, values ).first
-    @id = ['id'].to_i
+    @id = data['id'].to_i
   end
 
-  
+
 
 
 
