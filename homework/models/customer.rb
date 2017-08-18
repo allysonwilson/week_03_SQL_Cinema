@@ -1,11 +1,34 @@
-equire_relative("../db/sql_runner")
+require_relative("../db/sql_runner")
 class Customer
 
-def initialize(customer_info)
-@id = customer_info[].to_i
-@name = customer_info[]
-@funds = customer_info[]#does this need to convert to i?
+attr_reader (:id)
+attr_accessor (:name , :funds)
 
+def initialize(customer_info)
+@id = customer_info['id'].to_i
+@name = customer_info['name']
+@funds = customer_info['funds'].to_i
 end
+
+
+def save()
+    sql = "INSERT INTO
+    (
+      name,
+      funds
+    )
+    VALUES
+    (
+      $1, $2
+    )
+    RETURNING id"
+    values = [@name, @funds]
+    data = SqlRunner.run( sql, values ).first
+    @id = ['id'].to_i
+  end
+
+  
+
+
 
 end
