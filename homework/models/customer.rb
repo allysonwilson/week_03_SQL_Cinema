@@ -28,9 +28,34 @@ class Customer
     data = SqlRunner.run( sql, values ).first
     @id = data['id'].to_i
   end
+  def self.all()
+      sql = "SELECT * FROM users"
+      values = []
+      users = SqlRunner.run(sql, values)
+      result = User.map_items(users)
+      return result
+    end
 
+    def self.delete_all()
+      sql = "DELETE FROM customers"
+      values = []
+      SqlRunner.run(sql, values)
+    end
 
+    def films_seen()
+      sql = "
+      SELECT films.* FROM films
+       INNER JOIN tickets ON film.id = ticket.film_id
+        WHERE customer_id = $1;
+      "
+      #your selecting from table that you want array returned from
+      values = [@id]
+      result = SqlRunner.run(sql , values)
+      return Film.map_items(results)
+    end
 
-
-
+    def self.map_items(rows)
+      return rows.map { |row| Customer.new(row) }
+    end
+    
 end

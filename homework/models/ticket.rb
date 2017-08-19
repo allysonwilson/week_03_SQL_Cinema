@@ -4,7 +4,7 @@ class Ticket
 
 attr_reader(:id)
 attr_accessor(:customer_id , :film_id)
-#what attributes are appropriate for assigning to accessor here?
+
 
 def initialize(ticket_info)
 @id = ticket_info['id'].to_i
@@ -32,7 +32,7 @@ def save()
     sql = "SELECT * FROM tickets;"
     values = []
     tickets = SqlRunner.run(sql, values)
-    result = tickets.map_items(results)
+    result = tickets.map { |ticket| Ticket.new( ticket) }
     return result
   end
 
@@ -48,7 +48,7 @@ sql = " SELECT * FROM customers
 "
 values = [@customer_id]
 results = SqlRunner.run(sql, values)
-return Customer.map_items(results)
+return Customer.new(result[0])
 end
 
 def film()
