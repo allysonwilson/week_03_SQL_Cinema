@@ -22,11 +22,42 @@ def save()
     (
       $1, $2
     )
-    RETURNING id"
+    RETURNING id;"
     values = [@customer_id, @film_id]
     data = SqlRunner.run( sql, values ).first
     @id = data['id'].to_i
   end
 
+  def self.all()
+    sql = "SELECT * FROM tickets;"
+    values = []
+    tickets = SqlRunner.run(sql, values)
+    result = tickets.map_items(results)
+    return result
+  end
+
+  def self.delete_all()
+  sql = "DELETE FROM tickets;"
+  values = []
+  SqlRunner.run(sql, values)
+end
+
+def customer()
+sql = " SELECT * FROM customers
+    WHERE id = $1;
+"
+values = [@customer_id]
+results = SqlRunner.run(sql, values)
+return Customer.map_items(results)
+end
+
+def film()
+  sql = " SELECT * FROM customers WHERE id = $1;
+  "
+  values = [@film_id]
+  result = SqlRunner.run(sql, values)
+  return Film.new(result[0])
+
+end
 
 end
