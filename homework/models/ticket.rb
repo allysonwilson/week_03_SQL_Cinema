@@ -1,5 +1,5 @@
-require_relative("../customer")
-require_relative("../film")
+require_relative("./customer")
+require_relative("./film")
 class Ticket
 
 attr_reader(:id)

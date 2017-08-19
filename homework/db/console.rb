@@ -6,16 +6,17 @@ require("pry-byebug")
 
 
 
-customer1({'name' => 'Sam', "funds" => '20'})
-customer2({ 'name' => 'Paul', 'funds' => '30' })
+customer1 = Customer.new({'name' => 'Sam', "funds" => '20'})
+customer2 = Customer.new({ 'name' => 'Paul', 'funds' => '30' })
 
 
-film1({'title' => 'Moonstruck', 'price' => '5'})
-film2({'title'=> 'Dirty Dancing', 'price' => '6'})
+film1 = Film.new({'title' => 'Moonstruck', 'price' => '5'})
+film2 = Film.new({'title'=> 'Dirty Dancing', 'price' => '6'})
 
 binding.pry
-ticket1({'customer_id' => customer1.id , 'film_id' => film1.id})
-ticket2({'customer_id' => customer2.id , 'film_id' => film2.id})
+ticket1 = Ticket.new({'customer_id' => customer1.id , 'film_id' => film1.id})
+ticket2= Ticket.new({'customer_id' => customer2.id , 'film_id' => film2.id})
 
 
-#call all functions for testing in irb
+#call all functions for testing in pry
+#run console.rb in terminal then cinema.sql, database not populating?
