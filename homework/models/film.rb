@@ -27,6 +27,14 @@ def save()
     @id = data['id'].to_i
   end
 
+  def update()
+    sql = ' UPDATE films SET (
+  title, price) = ( $1 , $2 ) WHERE id = $3 ;'
+    values = [@title, @price]
+    SqlRunner.run(sql, values)
+    return Film.new(result[0])
+  end
+
   def self.all()
     sql = "SELECT * FROM locations"
     values = []

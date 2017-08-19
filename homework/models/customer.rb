@@ -28,6 +28,15 @@ class Customer
     data = SqlRunner.run( sql, values ).first
     @id = data['id'].to_i
   end
+
+  def update()
+    sql = ' UPDATE customers SET (
+  name, funds) = ( $1, $2 ) WHERE id = $3 ;'
+    values = [@name , @funds]
+    SqlRunner.run(sql, values)
+    return Customer.new(result[0])
+  end
+
   def self.all()
       sql = "SELECT * FROM users"
       values = []
@@ -57,5 +66,5 @@ class Customer
     def self.map_items(rows)
       return rows.map { |row| Customer.new(row) }
     end
-    
+
 end

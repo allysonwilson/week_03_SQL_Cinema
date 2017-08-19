@@ -28,6 +28,14 @@ def save()
     @id = data['id'].to_i
   end
 
+  def update()
+    sql = ' UPDATE ticket SET (
+    customer_id, film_id) = ( $1, $2 ) WHERE id = $3 ;'
+    values = [@customer_id , @film_id]
+    SqlRunner.run(sql, values)
+    return Customer.new(result[0])
+  end
+
   def self.all()
     sql = "SELECT * FROM tickets;"
     values = []
